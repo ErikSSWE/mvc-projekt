@@ -17,8 +17,8 @@ class YatzyController extends AbstractController
     public function Yatzy(): Response
     {
         $repository = $this->getDoctrine()->getRepository(Highscore::class);
-        $highscores = $repository->topTenScore();
-        $game = new YatzyGame($repository);
+
+        $game = new YatzyGame($repository, $this->getDoctrine()->getManager());
 
         if ($game->checkHighScore() == true && $game->checker == true) {
             return $this->redirectToRoute('new', ['score' => $game->getHighscore()]);

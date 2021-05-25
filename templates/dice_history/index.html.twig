@@ -1,20 +1,30 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello DiceHistoryController!{% endblock %}
-
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/erik/dbwebb-kurser/mvc/me/proj/src/Controller/DiceHistoryController.php'|file_link(0) }}">src/Controller/DiceHistoryController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/erik/dbwebb-kurser/mvc/me/proj/templates/dice_history/index.html.twig'|file_link(0) }}">templates/dice_history/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="../public/style/style.css" /> 
+    <link rel="stylesheet" href="https://unpkg.com/charts.css/dist/charts.min.css">
 {% endblock %}
+{% include 'incl/header.html.twig' %}
+<body>
+<div class="histogram">
+<table id="column-example-20" class="charts-css column show-labels">
+    <caption> Column Example #20 </caption> 
+    <thead><tr>
+        <th scope="col"> Year </th>
+        <th scope="col"> Progress </th>
+        </tr></thead>
+        <tbody>
+        {% for hist in history %}
+        <tr>
+            <th scope="row"> {{ hist.dice }} </th>
+            <td style="--size:{{ hist.nmbr / 100 }};"></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<div class="infoText">
+    <p> Här i denna graf kan man se vilka tärningar <br>
+    som är vanligast att slå </p>
+</div>
+</body>
+{% include 'incl/footer.html.twig' %}

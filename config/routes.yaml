@@ -13,3 +13,7 @@ highscore:
 new:
     path: /new
     controller: App\Controller\HighscoreController::new
+
+data:
+    path: /data
+    controller: App\Controller\DiceHistoryController::index

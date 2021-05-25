@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Yatzy;
 
+use App\Entity\DiceHistory;
 use App\Repository\DiceHistoryRepository;
 use App\Repository\HighscoreRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -52,17 +54,24 @@ class YatzyGame
     protected $highscoreRepository;
 
     /**
+     * @var EntityManagerInterface
+     */
+    protected $em;
+
+
+    /**
      * OneLevel Constructor
      *
      * @param HighscoreRepository $manager
      */
-    public function __construct(HighscoreRepository $highscoreRepository)
+    public function __construct(HighscoreRepository $highscoreRepository, EntityManagerInterface $em)
     {
         $this->status = 0;
 
         $this->session = new Session();
 
         $this->highscoreRepository = $highscoreRepository;
+        $this->em = $em;
 
         $this->hand["throws"] = $this->session->get("rolls") ?? 0;
         $this->hand["dices"][1] = $this->session->get('dice1') ?? 0;
@@ -166,32 +175,42 @@ class YatzyGame
     public function dices()
     {
         if (!isset($_POST['dice1'])) {
-            $this->session->set("dice1", rand(1, 6));
+            $this->throwDice("1");
         }
 
         if (!isset($_POST['dice2'])) {
-            $this->session->set("dice2", rand(1, 6));
+            $this->throwDice("2");
         }
 
         if (!isset($_POST['dice3'])) {
-            $this->session->set("dice3", rand(1, 6));
+            $this->throwDice("3");
         }
 
         if (!isset($_POST['dice4'])) {
-            $this->session->set("dice4", rand(1, 6));
+            $this->throwDice("4");
         }
 
         if (!isset($_POST['dice5'])) {
-            $this->session->set("dice5", rand(1, 6));
+            $this->throwDice("5");
         }
+    }
+
+    public function throwDice($dice) {
+        $value = rand(1, 6);
+        $dh = new DiceHistory();
+        $dh->setDice($value);
+        $this->em->persist($dh);
+        $this->em->flush();
+        $this->session->set("dice". $dice, $value);
     }
 
     public function getData()
     {
         return [
             "title" => "Yatzy",
-            "guide" => "För att spela klicka först starta
-                , sen är det bara att klicka i dem du vill behålla,
+            "guide" => "För att spela klicka först vad du tror i bettet sen
+                klicka bara starta,
+                , sen när spelet är igång är det bara att klicka i dem du vill behålla,
                 när du är klar klickar du bara avsluta",
             "message" => $this->session->get("message"),
             "dice1" => $this->session->get("dice1")  ?? 0,

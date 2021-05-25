@@ -22,19 +22,28 @@ class DiceHistoryRepository extends ServiceEntityRepository
     // /**
     //  * @return DiceHistory[] Returns an array of DiceHistory objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function getDiceField($value)
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
+            ->andWhere('d.dice = :val')
             ->setParameter('val', $value)
             ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
+    public function getSortedDiceField()
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d.dice, COUNT(d.dice) as nmbr')
+            ->groupBy('d.dice')
+            ->orderBy('d.dice', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     /*
     public function findOneBySomeField($value): ?DiceHistory
