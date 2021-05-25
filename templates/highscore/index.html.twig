@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<title>Highscore</title>
+
+<head>
+    <meta charset="UTF-8">
+    {% block stylesheets %}
+   
+    {% endblock %}
+</head>
+{% block body %}
+
+<div class="example-wrapper">
+<table>
+<h1> Highscore för yatzy </h1>
+<tr>
+    <th>Namn</th>
+    <th>Poäng</th>
+    <th>Datum</th>
+</tr>
+{% for highscore in highscores %}
+    <tr>
+        <td>{{ highscore.name }}</td>
+        <td>{{ highscore.score }}</td>
+        <td>{{ date(highscore.date).format('d-M-Y') }}</td>
+    </tr>
+{% endfor %}
+
+<a href="{{ url('index') }}">Hem</a>
+
+</table>
+
+</div>
+{% endblock %}

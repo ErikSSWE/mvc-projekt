@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        {% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="../style/yatzy.css" /> 
+        {% endblock %}
+    </head>
+<body>
+
+    <h1 class="title"> {{ title }} </h1>
+    
+    <h3 class="guide"> {{ guide }} </h3>
+
+    <div class="form">
+        <form method="POST" action="{{ url('yatzy') }}">
+        
+            <input type="checkbox" name="dice1" value="1">slå tärning 1<br>
+            <input type="checkbox" name="dice2" value="1">slå tärning 2<br>
+            <input type="checkbox" name="dice3" value="1">slå tärning 3<br>
+            <input type="checkbox" name="dice4" value="1">slå tärning 4<br>
+            <input type="checkbox" name="dice5" value="1">slå tärning 5<br>
+            <br>
+            <input type="submit" name="action" value="starta">
+            <input type="submit" name="action" value="Nästa">
+            <input type="submit" name="action" value="slå">
+            <input type="submit" name="action" value="avsluta">
+        </form>
+        
+        <h2> Slag: {{ rolls }} </h2>
+    </div>
+
+
+    <div class="dices">
+        <p> Tärning 1: <img src="img/dices{{ dice1 }}" alt="{{ dice1 }}" width="50" height="50"</img></p>
+        <p> Tärning 1: <img src="img/dices{{ dice2 }}" alt="{{ dice2 }}" width="50" height="50"</img></p>
+        <p> Tärning 1: <img src="img/dices{{ dice3 }}" alt="{{ dice3 }}" width="50" height="50"</img></p>
+        <p> Tärning 1: <img src="img/dices{{ dice4 }}" alt="{{ dice4 }}" width="50" height="50"</img></p>
+        <p> Tärning 1: <img src="img/dices{{ dice5 }}" alt="{{ dice5 }}" width="50" height="50"</img></p>
+    </div>
+
+    <div class="score">
+        <h2>Poäng:</h2>
+        <p> Ettor: {{ Score1 }}</p>
+        <p> Tvåor: {{ Score2 }}</p>
+        <p> Treor: {{ Score3 }}</p>
+        <p> Fyror: {{ Score4 }}</p>
+        <p> Femmor: {{ Score5 }}</p>
+        <p> Sexor: {{ Score6 }}</p>
+    </div>
+
+    <a href="{{ url('index') }}">Hem</a>
+</body>
