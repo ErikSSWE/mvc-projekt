@@ -24,7 +24,7 @@ class HighscoreController extends AbstractController
         //$this->createHighscore();
         $repository = $this->getDoctrine()->getRepository(Highscore::class);
         $highscores = $repository->topTenScore();
-
+        
 
         return $this->render('highscore/index.html.twig', [
             'controller_name' => 'HighscoreController',

@@ -1,4 +1,14 @@
-<h1>{{ text }}</h1>
-<a href="{{ url('game') }}">game</a>
-<a href="{{ url('highscore') }}">Highscore</a>
-<h1>{{ date }}</h1>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        {% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="../public/style/style.css" /> 
+        {% endblock %}
+    </head>
+<body>
+    {% include 'incl/header.html.twig' %}
+    <h1>{{ text }}</h1>
+    {% include 'incl/footer.html.twig' %}
+</body>
+</html>

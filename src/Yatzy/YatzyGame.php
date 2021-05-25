@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Yatzy;
 
-
+use App\Repository\DiceHistoryRepository;
 use App\Repository\HighscoreRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -24,8 +24,28 @@ class YatzyGame
         ]
     ];
 
-    var $checker = false;
+    protected $bet = [
+        "0" => [
+            "score" => 0,
+            "multiplier" => 0,
+        ],
+        "1" => [
+            "score" => 0,
+            "multiplier" => 0,
+        ],
+        "2" => [
+            "score" => 0,
+            "multiplier" => 0,
+        ],
+        "3" => [
+            "score" => 0,
+            "multiplier" => 0,
+        ],
+    ];
+    
+    protected $status = 0;
 
+    var $checker = false;
     /**
      * @var HighscoreRepository
      */
@@ -38,9 +58,9 @@ class YatzyGame
      */
     public function __construct(HighscoreRepository $highscoreRepository)
     {
+        $this->status = 0;
+
         $this->session = new Session();
-        //$this->session->set('test', +1);
-        //echo "test:::" . $this->session->get('test');
 
         $this->highscoreRepository = $highscoreRepository;
 
@@ -51,6 +71,17 @@ class YatzyGame
         $this->hand["dices"][4] = $this->session->get('dice4') ?? 0;
         $this->hand["dices"][5] = $this->session->get('dice5') ?? 0;
 
+        $this->bet["0"]["score"] = 0;
+        $this->bet["0"]["multiplier"] = 1;
+        $this->bet["1"]["score"] = 30;
+        $this->bet["1"]["multiplier"] = 1.2;
+        $this->bet["2"]["score"] = 50;
+        $this->bet["2"]["multiplier"] = 1.4;
+        $this->bet["3"]["score"] = 80;
+        $this->bet["3"]["multiplier"] = 1.8;
+        $this->bet["4"]["score"] = 103;
+        $this->bet["4"]["multiplier"] = 2;
+
         $this->checker = false;
 
         $action = strtolower($_POST["action"] ?? "");
@@ -58,6 +89,7 @@ class YatzyGame
         switch ($action) {
             case 'nästa':
                 if ($this->session->get("number") <= 6) {
+                    $this->status = 1;
                     $this->setScore();
                     $this->session->set("rolls", 0);
                     $this->addValueToSessionVar('number', 1);
@@ -65,13 +97,17 @@ class YatzyGame
                 $_SESSION["message"] = "Spelet är nu avklarat!";
                 break;
             case 'slå':
+                $this->status = 1;
                 $this->continueGame();
                 break;
             case 'starta':
+                $this->status = 1;
+                $this->session->set("prediction", $_POST["bet"]);
                 $this->startaGame();
                 break;
             case 'avsluta':
                 $this->checker = true;
+                $this->status = 0;
                 break;
         }
     }
@@ -129,23 +165,23 @@ class YatzyGame
 
     public function dices()
     {
-        if (isset($_POST['dice1']) && $_POST['dice1'] != "1") {
+        if (!isset($_POST['dice1'])) {
             $this->session->set("dice1", rand(1, 6));
         }
 
-        if (isset($_POST['dice2']) && $_POST['dice2'] != "1") {
+        if (!isset($_POST['dice2'])) {
             $this->session->set("dice2", rand(1, 6));
         }
 
-        if (isset($_POST['dice3']) && $_POST['dice3'] != "1") {
+        if (!isset($_POST['dice3'])) {
             $this->session->set("dice3", rand(1, 6));
         }
 
-        if (isset($_POST['dice4']) && $_POST['dice4'] != "1") {
+        if (!isset($_POST['dice4'])) {
             $this->session->set("dice4", rand(1, 6));
         }
 
-        if (isset($_POST['dice5']) && $_POST['dice5'] != "1") {
+        if (!isset($_POST['dice5'])) {
             $this->session->set("dice5", rand(1, 6));
         }
     }
@@ -155,7 +191,7 @@ class YatzyGame
         return [
             "title" => "Yatzy",
             "guide" => "För att spela klicka först starta
-                , sen är det bara att klicka i dem du vill slå om
+                , sen är det bara att klicka i dem du vill behålla,
                 när du är klar klickar du bara avsluta",
             "message" => $this->session->get("message"),
             "dice1" => $this->session->get("dice1")  ?? 0,
@@ -170,6 +206,11 @@ class YatzyGame
             "Score4" => $this->session->get("Score4") ?? 0,
             "Score5" => $this->session->get("Score5") ?? 0,
             "Score6" => $this->session->get("Score6") ?? 0,
+            "bettext" => "Tror du att du kommmer komma med i top 10?",
+            "bets" => $this->bet,
+            "check" => $this->status ?? 0,
+            "test" => $this->bet[$this->session->get("prediction")]["multiplier"],
+            "test2" => $this->session->get("prediction"),
         ];
     }
 
@@ -182,6 +223,11 @@ class YatzyGame
         $totalScore += $this->session->get("Score4") ?? 0;
         $totalScore += $this->session->get("Score5") ?? 0;
         $totalScore += $this->session->get("Score6") ?? 0;
+
+
+        if ($totalScore >= $this->bet[$this->session->get("prediction")]["score"]) {
+            $totalScore = round($totalScore * $this->bet[$this->session->get("prediction")]["multiplier"]);
+        }
 
         return $totalScore;
     }

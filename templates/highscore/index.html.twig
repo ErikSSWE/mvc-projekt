@@ -5,30 +5,29 @@
 <head>
     <meta charset="UTF-8">
     {% block stylesheets %}
-   
+        <link rel="stylesheet" type="text/css" href="../public/style/style.css" /> 
     {% endblock %}
 </head>
 {% block body %}
-
+    {% include 'incl/header.html.twig' %}
 <div class="example-wrapper">
 <table>
 <h1> Highscore för yatzy </h1>
-<tr>
+<tr class="highscore">
     <th>Namn</th>
     <th>Poäng</th>
     <th>Datum</th>
 </tr>
 {% for highscore in highscores %}
-    <tr>
+    <tr  class="highscore">
         <td>{{ highscore.name }}</td>
         <td>{{ highscore.score }}</td>
         <td>{{ date(highscore.date).format('d-M-Y') }}</td>
     </tr>
 {% endfor %}
 
-<a href="{{ url('index') }}">Hem</a>
-
 </table>
-
-</div>
 {% endblock %}
+
+{% include 'incl/footer.html.twig' %}
+</div>
