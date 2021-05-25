@@ -1,0 +1,16 @@
+language: php
+
+php:
+    - "7.4"
+
+sudo: false
+
+git:
+    submodules: false
+
+before_script:
+    - make install test
+
+script:
+    - make phpunit
+    - make phpcs phpmd phpstan
