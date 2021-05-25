@@ -228,8 +228,8 @@ class YatzyGame
             "bettext" => "Tror du att du kommmer komma med i top 10?",
             "bets" => $this->bet,
             "check" => $this->status ?? 0,
-            "test" => $this->bet[$this->session->get("prediction")]["multiplier"],
-            "test2" => $this->session->get("prediction"),
+            "guide2" => 'Får du rätt på ditt bet och det är svårare får
+                du även bonuspoäng!',
         ];
     }
 

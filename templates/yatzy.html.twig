@@ -10,7 +10,10 @@
     {% include 'incl/header.html.twig' %}
     <h1 class="title"> {{ title }} </h1>
     {% if check == 0 %}
-        <h3 class="guide"> {{ guide }} </h3>
+        <div class="guide">
+        <h3> {{ guide }} </h3>
+        <h4> {{ guide2 }} </h4>
+        </div>
     {% endif %}
     <p> Ditt bett för denna match: {{ check }} eller över </p>
     <div class="form">
@@ -58,7 +61,6 @@
         <p> Femmor: {{ Score5 }}</p>
         <p> Sexor: {{ Score6 }}</p>
     </div>
-    <p> {{ test }} </p>
-    <p> {{ test2 }} </p>
+
     {% include 'incl/footer.html.twig' %}
 </body>
