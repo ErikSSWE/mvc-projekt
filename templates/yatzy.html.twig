@@ -24,17 +24,17 @@
         <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h4> Bet </h4>
-                        <p> 0 över = ditt slutpoäng × 1</p>
-                        <p> 30 över = ditt slutpoäng × 1.2</p>
-                        <p> 50 över = ditt slutpoäng × 1.4</p>
-                        <p> 80 över = ditt slutpoäng × 1.8</p>
-                        <p> 103 över = ditt slutpoäng × 2</p>
+                        <h4> Om du får rätt på ditt bett </h4>
+                        <p> 0 eller över = ditt slutpoäng × 1</p>
+                        <p> 30 eller över = ditt slutpoäng × 1.2</p>
+                        <p> 50 eller över = ditt slutpoäng × 1.4</p>
+                        <p> 80 eller över = ditt slutpoäng × 1.8</p>
+                        <p> 103 eller över = ditt slutpoäng × 2</p>
                     </div>
                 </div>
         </div>
         {% endif %}
-        <p> Ditt bett för denna match: {{ check }} eller över </p>
+        <h4> Ditt bett för denna match: {{ check }} eller över </h4>
         <div class="col">
             <div class="form">
                 <form method="POST" action="{{ url('yatzy') }}">
