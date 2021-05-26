@@ -20,8 +20,10 @@ class YatzyController extends AbstractController
 
         $game = new YatzyGame($repository, $this->getDoctrine()->getManager());
 
-        if ($game->checkHighScore() == true && $game->checker == true) {
-            return $this->redirectToRoute('new', ['score' => $game->getHighscore()]);
+        if ($game->checker == true) {
+            if ($game->checkHighScore() == true) {
+                return $this->redirectToRoute('new', ['score' => $game->getHighscore()]);
+            }
         }
         return $this->render('yatzy.html.twig', $game->getData());
     }

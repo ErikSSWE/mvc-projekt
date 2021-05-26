@@ -1,4 +1,6 @@
 {
+    "name": "mvc/proj",
+    "description": "kmom10",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "dev",
