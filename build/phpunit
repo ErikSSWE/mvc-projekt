@@ -1,1 +1,44 @@
-Could not read ".phpunit.xml".
+PHPUnit 9.5.4 by Sebastian Bergmann and contributors.
+
+EEEEE                                                               5 / 5 (100%)
+
+Time: 00:00.104, Memory: 16.00 MB
+
+There were 5 errors:
+
+1) App\Yatzy\YatzyTest::testConstruct2
+ArgumentCountError: Too few arguments to function App\Yatzy\YatzyGame::__construct(), 0 passed in /home/erik/dbwebb-kurser/mvc/me/proj/test/Yatzy/YatzyTest.php on line 18 and exactly 2 expected
+
+/home/erik/dbwebb-kurser/mvc/me/proj/src/Yatzy/YatzyGame.php:67
+/home/erik/dbwebb-kurser/mvc/me/proj/test/Yatzy/YatzyTest.php:18
+
+2) App\Yatzy\YatzyTest::testConstruct3
+ArgumentCountError: Too few arguments to function App\Yatzy\YatzyGame::__construct(), 0 passed in /home/erik/dbwebb-kurser/mvc/me/proj/test/Yatzy/YatzyTest.php on line 34 and exactly 2 expected
+
+/home/erik/dbwebb-kurser/mvc/me/proj/src/Yatzy/YatzyGame.php:67
+/home/erik/dbwebb-kurser/mvc/me/proj/test/Yatzy/YatzyTest.php:34
+
+3) App\Yatzy\YatzyTest::testConstruct1
+ArgumentCountError: Too few arguments to function App\Yatzy\YatzyGame::__construct(), 0 passed in /home/erik/dbwebb-kurser/mvc/me/proj/test/Yatzy/YatzyTest.php on line 50 and exactly 2 expected
+
+/home/erik/dbwebb-kurser/mvc/me/proj/src/Yatzy/YatzyGame.php:67
+/home/erik/dbwebb-kurser/mvc/me/proj/test/Yatzy/YatzyTest.php:50
+
+4) App\Yatzy\YatzyTest::testConstruct4
+ArgumentCountError: Too few arguments to function App\Yatzy\YatzyGame::__construct(), 0 passed in /home/erik/dbwebb-kurser/mvc/me/proj/test/Yatzy/YatzyTest.php on line 61 and exactly 2 expected
+
+/home/erik/dbwebb-kurser/mvc/me/proj/src/Yatzy/YatzyGame.php:67
+/home/erik/dbwebb-kurser/mvc/me/proj/test/Yatzy/YatzyTest.php:61
+
+5) App\Yatzy\YatzyTest::testConstructCaseStarta
+ArgumentCountError: Too few arguments to function App\Yatzy\YatzyGame::__construct(), 0 passed in /home/erik/dbwebb-kurser/mvc/me/proj/test/Yatzy/YatzyTest.php on line 72 and exactly 2 expected
+
+/home/erik/dbwebb-kurser/mvc/me/proj/src/Yatzy/YatzyGame.php:67
+/home/erik/dbwebb-kurser/mvc/me/proj/test/Yatzy/YatzyTest.php:72
+
+ERRORS!
+Tests: 5, Assertions: 0, Errors: 5.
+
+Generating code coverage report in Clover XML format ... done [00:00.094]
+
+Generating code coverage report in HTML format ... done [00:00.062]
