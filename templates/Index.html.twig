@@ -6,15 +6,21 @@
         <link rel="stylesheet" type="text/css" href="../public/style/style.css" /> 
         {% endblock %}
     </head>
-<body>
     {% include 'incl/header.html.twig' %}
-    <h1>{{ text }}</h1>
-    <p> Här finns några sidor du kan kolla igenom,
-    Den första som är yatzy är ett spel som efterliknar
-    yatzy. Sen har vi highscore som visar top 10 bästa
-    spelarna som spelat yatzy och till sist har vi data
-    som visar lite data om tärningarna och vilka som är
-    vanligast att slå när man spelar.
-    {% include 'incl/footer.html.twig' %}
+<body>
+<div class="container">
+    <div class="row">
+        <h1>{{ text }}</h1>
+        <p> Här finns några sidor du kan kolla igenom,
+        Den första som är yatzy är ett spel som efterliknar
+        yatzy. Sen har vi highscore som visar top 10 bästa
+        spelarna som spelat yatzy och till sist har vi data
+        som visar lite data om tärningarna och vilka som är
+        vanligast att slå när man spelar.
+    </div>
+    <div class="row">
+        {% include 'incl/footer.html.twig' %}
+    </div>
+</div>
 </body>
 </html>

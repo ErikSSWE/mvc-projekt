@@ -5,29 +5,33 @@
 <head>
     <meta charset="UTF-8">
     {% block stylesheets %}
-        <link rel="stylesheet" type="text/css" href="../public/style/style.css" /> 
+        <link rel="stylesheet" type="text/css" href="../public/style/style.css" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     {% endblock %}
-</head>
-{% block body %}
     {% include 'incl/header.html.twig' %}
-<div class="example-wrapper">
-<table>
-<h1> Highscore för yatzy </h1>
-<tr class="highscore">
-    <th>Namn</th>
-    <th>Poäng</th>
-    <th>Datum</th>
-</tr>
-{% for highscore in highscores %}
-    <tr  class="highscore">
-        <td>{{ highscore.name }}</td>
-        <td>{{ highscore.score }}</td>
-        <td>{{ date(highscore.date).format('d-M-Y') }}</td>
-    </tr>
-{% endfor %}
-
-</table>
-{% endblock %}
-
-{% include 'incl/footer.html.twig' %}
+</head>
+<div class="container">
+    <div class="row">
+        <h1> Highscore för yatzy </h1>
+    </div>
+    <div class="row">
+        <table class="table table-dark table-striped caption-top">
+            <caption> top 10 </caption>
+            <tr class="highscore">
+                <th>Namn</th>
+                <th>Poäng</th>
+                <th>Datum</th>
+            </tr>
+            {% for highscore in highscores %}
+                <tr  class="highscore">
+                    <td>{{ highscore.name }}</td>
+                    <td>{{ highscore.score }}</td>
+                    <td>{{ date(highscore.date).format('d-M-Y') }}</td>
+                </tr>
+        {% endfor %}
+        </table>
+    </div>
+    <div class="row">
+        {% include 'incl/footer.html.twig' %}
+    </div>
 </div>

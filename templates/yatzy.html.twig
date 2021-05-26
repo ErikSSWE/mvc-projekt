@@ -4,63 +4,139 @@
         <meta charset="UTF-8">
         {% block stylesheets %}
         <link rel="stylesheet" type="text/css" href="../public/style/style.css" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         {% endblock %}
     </head>
 <body>
-    {% include 'incl/header.html.twig' %}
-    <h1 class="title"> {{ title }} </h1>
-    {% if check == 0 %}
-        <div class="guide">
-        <h3> {{ guide }} </h3>
-        <h4> {{ guide2 }} </h4>
-        </div>
-    {% endif %}
-    <p> Ditt bett för denna match: {{ check }} eller över </p>
-    <div class="form">
-        <form method="POST" action="{{ url('yatzy') }}">
+{% include 'incl/header.html.twig' %}
+<div class="container">
+    <div class="row">
+        <h1 class="title"> {{ title }} </h1>
+        <div class="col">
             {% if check == 0 %}
-                <label for="bet">Bet:</label>
-                <select id="bet" name="bet">
-                    {% for key, bet in bets %}
-                        <option value="{{ key }}" >{{ bet.score }} eller över</option>
-                    {% endfor %}
-                </select>
-                <br>
-                <input type="submit" name="action" value="starta">
-            {% endif %}
-            {% if check != 0 %}
-                <input type="checkbox" name="dice1" value="1">slå tärning 1<br>
-                <input type="checkbox" name="dice2" value="1">slå tärning 2<br>
-                <input type="checkbox" name="dice3" value="1">slå tärning 3<br>
-                <input type="checkbox" name="dice4" value="1">slå tärning 4<br>
-                <input type="checkbox" name="dice5" value="1">slå tärning 5<br>
-                <br>
-                <input type="submit" name="action" value="Nästa">
-                <input type="submit" name="action" value="slå">
-                <input type="submit" name="action" value="avsluta">
-            {% endif %}
-        </form>
-
-        <h2> Slag: {{ rolls }} </h2>
+                <div class="card">
+                    <div class="card-body">
+                        <h3> {{ guide }} </h3>
+                        <h4> {{ guide2 }} </h4>
+                    </div>
+                </div>
+        </div>
+        <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h4> Bet </h4>
+                        <p> 0 över = ditt slutpoäng × 1</p>
+                        <p> 30 över = ditt slutpoäng × 1.2</p>
+                        <p> 50 över = ditt slutpoäng × 1.4</p>
+                        <p> 80 över = ditt slutpoäng × 1.8</p>
+                        <p> 103 över = ditt slutpoäng × 2</p>
+                    </div>
+                </div>
+        </div>
+        {% endif %}
+        <p> Ditt bett för denna match: {{ check }} eller över </p>
+        <div class="col">
+            <div class="form">
+                <form method="POST" action="{{ url('yatzy') }}">
+                    {% if check == 0 %}
+                        <label for="bet">Bet:</label>
+                        <select class="form-select" id="bet" name="bet">
+                            {% for key, bet in bets %}
+                                <option value="{{ key }}" >{{ bet.score }} eller över</option>
+                            {% endfor %}
+                        </select>
+                        <br>
+                        <input class="btn btn-outline-primary" type="submit" name="action" value="starta">
+                    {% endif %}
+                    {% if check != 0 %}
+                        <div class="form-check form-check-inline">
+                            <input id="dice1" type="checkbox" name="dice1" value="1">
+                            <label class="form-check-label" for="dice1">
+                                Behåll tärning 1
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input id="dice2" type="checkbox" name="dice2" value="1">
+                            <label class="form-check-label" for="dice2">
+                                Behåll tärning 2
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input id="dice3" type="checkbox" name="dice3" value="1">
+                            <label class="form-check-label" for="dice3">
+                                Behåll tärning 3
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input id="dice4" type="checkbox" name="dice4" value="1">
+                            <label class="form-check-label" for="dice4">
+                                Behåll tärning 4
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input id="dice5" type="checkbox" name="dice5" value="1">
+                            <label class="form-check-label" for="dice5">
+                                Behåll tärning 5
+                            </label>
+                        </div>
+                        <br>
+                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                            <input class="btn btn-outline-success" type="submit" name="action" value="Nästa">
+                            <input class="btn btn-outline-primary" type="submit" name="action" value="slå">
+                            <input class="btn btn-outline-danger" type="submit" name="action" value="avsluta">
+                        </div>
+                    {% endif %}
+                </form>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2> Slag: {{ rolls }} </h2>
+        </div>
+        <div class="dices">
+            <div class="col">
+                <p> Tärning 1: <img src="img/dices{{ dice1 }}" alt="{{ dice1 }}" width="50" height="50"</img></p>
+            </div>
+            <div class="col">
+                <p> Tärning 2: <img src="img/dices{{ dice2 }}" alt="{{ dice2 }}" width="50" height="50"</img></p>
+            </div>
+            <div class="col">
+                <p> Tärning 3: <img src="img/dices{{ dice3 }}" alt="{{ dice3 }}" width="50" height="50"</img></p>
+            </div>
+            <div class="col">
+                <p> Tärning 4: <img src="img/dices{{ dice4 }}" alt="{{ dice4 }}" width="50" height="50"</img></p>
+            </div>
+            <div class="col">
+                <p> Tärning 5: <img src="img/dices{{ dice5 }}" alt="{{ dice5 }}" width="50" height="50"</img></p>
+            </div>
+        </div>
     </div>
 
-    <div class="dices">
-        <p> Tärning 1: <img src="img/dices{{ dice1 }}" alt="{{ dice1 }}" width="50" height="50"</img></p>
-        <p> Tärning 2: <img src="img/dices{{ dice2 }}" alt="{{ dice2 }}" width="50" height="50"</img></p>
-        <p> Tärning 3: <img src="img/dices{{ dice3 }}" alt="{{ dice3 }}" width="50" height="50"</img></p>
-        <p> Tärning 4: <img src="img/dices{{ dice4 }}" alt="{{ dice4 }}" width="50" height="50"</img></p>
-        <p> Tärning 5: <img src="img/dices{{ dice5 }}" alt="{{ dice5 }}" width="50" height="50"</img></p>
+    <div class="row">
+        <div class="score">
+            <h2>Poäng:</h2>
+            <div class="col">
+                <p> Ettor: {{ Score1 }}</p>
+            </div>
+            <div class="col">
+                <p> Tvåor: {{ Score2 }}</p>
+            </div>
+            <div class="col">
+                <p> Treor: {{ Score3 }}</p>
+            </div>
+            <div class="col">
+                <p> Fyror: {{ Score4 }}</p>
+            </div>
+            <div class="col">
+                <p> Femmor: {{ Score5 }}</p>
+            </div>
+            <div class="col">
+                <p> Sexor: {{ Score6 }}</p>
+            </div>
+        </div>
     </div>
-
-    <div class="score">
-        <h2>Poäng:</h2>
-        <p> Ettor: {{ Score1 }}</p>
-        <p> Tvåor: {{ Score2 }}</p>
-        <p> Treor: {{ Score3 }}</p>
-        <p> Fyror: {{ Score4 }}</p>
-        <p> Femmor: {{ Score5 }}</p>
-        <p> Sexor: {{ Score6 }}</p>
-    </div>
-
+    <div class="row">
     {% include 'incl/footer.html.twig' %}
+    </div>
+</div>
 </body>

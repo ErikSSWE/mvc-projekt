@@ -1,30 +1,34 @@
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="../public/style/style.css" /> 
     <link rel="stylesheet" href="https://unpkg.com/charts.css/dist/charts.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 {% endblock %}
 {% include 'incl/header.html.twig' %}
 <body>
-<div class="histogram">
-<table id="column-example-20" class="charts-css column show-labels">
-    <caption> Column Example #20 </caption> 
-    <thead><tr>
-        <th scope="col"> Year </th>
-        <th scope="col"> Progress </th>
-        </tr></thead>
-        <tbody>
-        {% for hist in history %}
-        <tr>
-            <th scope="row"> {{ hist.dice }} </th>
-            <td style="--size:{{ hist.nmbr / 100 }};"></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-</div>
-
-<div class="infoText">
-    <p> Här i denna graf kan man se vilka tärningar <br>
-    som är vanligast att slå </p>
+<div class="container">
+    <div class="row">
+        <div class="infoText">
+            <p> Här i denna graf kan man se vilka tärningar <br>
+            som är vanligast att slå </p>
+        </div>
+    </div>
+    <div class="histogram">
+    <table id="column-example-20" class="charts-css column show-labels">
+        <caption> Column Example #20 </caption> 
+        <thead><tr>
+            <th scope="col"> Year </th>
+            <th scope="col"> Progress </th>
+            </tr></thead>
+            <tbody>
+            {% for hist in history %}
+            <tr>
+                <th scope="row"> {{ hist.dice }} </th>
+                <td style="--size:{{ hist.nmbr / 100 }};"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
 </div>
 </body>
 {% include 'incl/footer.html.twig' %}
