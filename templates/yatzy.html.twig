@@ -13,39 +13,46 @@
     <div class="row">
         <h1 class="title"> {{ title }} </h1>
         <div class="col">
-            {% if check == 0 %}
-                <div class="card">
-                    <div class="card-body">
-                        <h3> {{ guide }} </h3>
-                        <h4> {{ guide2 }} </h4>
-                    </div>
+            <div class="card bg-dark text-white">
+                <img class="card-img" src="../public/img/background" alt="Card image">
+                <div class="card-img-overlay">
+                    <p class="card-text"> {{ guide }}</p>
+                    <p class="card-text"> {{ guide2 }}</p>
                 </div>
+            </div>
         </div>
         <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h4> Om du får rätt på ditt bett </h4>
-                        <p> 0 eller över = ditt slutpoäng × 1</p>
-                        <p> 30 eller över = ditt slutpoäng × 1.2</p>
-                        <p> 50 eller över = ditt slutpoäng × 1.4</p>
-                        <p> 80 eller över = ditt slutpoäng × 1.8</p>
-                        <p> 103 eller över = ditt slutpoäng × 2</p>
-                    </div>
-                </div>
+            <h4> Om du får rätt på ditt bett </h4>
+            <ul class="list-group"> 
+            {% for key, bet in bets %}
+                {% if selectedBet == key and check > 0 %}
+                    <li class="list-group-item active">om du får {{ bet.score }} eller högre mulitpliceras ditt resultat med {{ bet.multiplier }} </li>
+                {% else %}
+                    <li class="list-group-item">om du får {{ bet.score }} eller högre mulitpliceras ditt resultat med {{ bet.multiplier }} </li>
+                {% endif %}
+            {% endfor %}
+            </ul>
         </div>
-        {% endif %}
-        <h4> Ditt bett för denna match: {{ check }} eller över </h4>
+    </div>
+    <div class="row">
+        <div class="col">
+            <hr>
+        </div>
+    </div>
+    <div class="row">
         <div class="col">
             <div class="form">
                 <form method="POST" action="{{ url('yatzy') }}">
                     {% if check == 0 %}
-                        <label for="bet">Bet:</label>
-                        <select class="form-select" id="bet" name="bet">
-                            {% for key, bet in bets %}
-                                <option value="{{ key }}" >{{ bet.score }} eller över</option>
-                            {% endfor %}
-                        </select>
-                        <br>
+                        <div class="col-md-2">
+                            <label for="bet">Bet:</label>
+                            <select class="form-select" id="bet" name="bet">
+                                {% for key, bet in bets %}
+                                    <option value="{{ key }}" >{{ bet.score }} eller över</option>
+                                {% endfor %}
+                            </select>
+                            <br>
+                        </div>
                         <input class="btn btn-outline-primary" type="submit" name="action" value="starta">
                     {% endif %}
                     {% if check != 0 %}
@@ -54,85 +61,73 @@
                             <label class="form-check-label" for="dice1">
                                 Behåll tärning 1
                             </label>
+                            <br>
+                            <img src="img/dices{{ dice1 }}" alt="{{ dice1 }}" width="50" height="50"</img>
                         </div>
                         <div class="form-check form-check-inline">
                             <input id="dice2" type="checkbox" name="dice2" value="1">
                             <label class="form-check-label" for="dice2">
                                 Behåll tärning 2
                             </label>
+                            <br>
+                            <img src="img/dices{{ dice2 }}" alt="{{ dice2 }}" width="50" height="50"</img>
                         </div>
                         <div class="form-check form-check-inline">
                             <input id="dice3" type="checkbox" name="dice3" value="1">
                             <label class="form-check-label" for="dice3">
                                 Behåll tärning 3
                             </label>
+                            <br>
+                            <img src="img/dices{{ dice3 }}" alt="{{ dice3 }}" width="50" height="50"</img>
                         </div>
                         <div class="form-check form-check-inline">
                             <input id="dice4" type="checkbox" name="dice4" value="1">
                             <label class="form-check-label" for="dice4">
                                 Behåll tärning 4
                             </label>
+                            <br>
+                            <img src="img/dices{{ dice4 }}" alt="{{ dice4 }}" width="50" height="50"</img>
                         </div>
                         <div class="form-check form-check-inline">
                             <input id="dice5" type="checkbox" name="dice5" value="1">
                             <label class="form-check-label" for="dice5">
                                 Behåll tärning 5
                             </label>
+                            <br>
+                            <img src="img/dices{{ dice5 }}" alt="{{ dice5 }}" width="50" height="50"</img>
                         </div>
                         <br>
+                        <div class="row">
+                            <div class="col">
+                                <hr>
+                            </div>
+                        </div>
                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                            <input class="btn btn-outline-success" type="submit" name="action" value="Nästa">
                             <input class="btn btn-outline-primary" type="submit" name="action" value="slå">
+                            <input class="btn btn-outline-success" type="submit" name="action" value="Nästa">
                             <input class="btn btn-outline-danger" type="submit" name="action" value="avsluta">
                         </div>
                     {% endif %}
                 </form>
             </div>
+        </div>
     </div>
-    <div class="row">
+     <div class="row">
         <div class="col">
             <h2> Slag: {{ rolls }} </h2>
         </div>
-        <div class="dices">
-            <div class="col">
-                <p> Tärning 1: <img src="img/dices{{ dice1 }}" alt="{{ dice1 }}" width="50" height="50"</img></p>
-            </div>
-            <div class="col">
-                <p> Tärning 2: <img src="img/dices{{ dice2 }}" alt="{{ dice2 }}" width="50" height="50"</img></p>
-            </div>
-            <div class="col">
-                <p> Tärning 3: <img src="img/dices{{ dice3 }}" alt="{{ dice3 }}" width="50" height="50"</img></p>
-            </div>
-            <div class="col">
-                <p> Tärning 4: <img src="img/dices{{ dice4 }}" alt="{{ dice4 }}" width="50" height="50"</img></p>
-            </div>
-            <div class="col">
-                <p> Tärning 5: <img src="img/dices{{ dice5 }}" alt="{{ dice5 }}" width="50" height="50"</img></p>
-            </div>
-        </div>
     </div>
-
     <div class="row">
-        <div class="score">
-            <h2>Poäng:</h2>
-            <div class="col">
-                <p> Ettor: {{ Score1 }}</p>
-            </div>
-            <div class="col">
-                <p> Tvåor: {{ Score2 }}</p>
-            </div>
-            <div class="col">
-                <p> Treor: {{ Score3 }}</p>
-            </div>
-            <div class="col">
-                <p> Fyror: {{ Score4 }}</p>
-            </div>
-            <div class="col">
-                <p> Femmor: {{ Score5 }}</p>
-            </div>
-            <div class="col">
-                <p> Sexor: {{ Score6 }}</p>
-            </div>
+        <div class="col-md-2">
+            <h3> Poäng: </h3>
+            <ul class="list-group">
+                <li class="list-group-item"> Ettor: {{ Score1 }}</li>
+                <li class="list-group-item"> Tvåor: {{ Score2 }}</li>
+                <li class="list-group-item"> Treor: {{ Score3 }}</li>
+                <li class="list-group-item"> Fyror: {{ Score4 }}</li>
+                <li class="list-group-item"> Femmor: {{ Score5 }}</li>
+                <li class="list-group-item"> Sexor: {{ Score6 }}</li>
+            </ul>
         </div>
     </div>
     <div class="row">

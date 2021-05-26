@@ -227,9 +227,10 @@ class YatzyGame
             "Score6" => $this->session->get("Score6") ?? 0,
             "bettext" => "Tror du att du kommmer komma med i top 10?",
             "bets" => $this->bet,
-            "check" => $this->status ?? 0,
+            "check" => $this->status ?? -1,
             "guide2" => 'Får du rätt på ditt bet och det är svårare får
                 du även bonuspoäng!',
+            "selectedBet" => $this->session->get('prediction'),
         ];
     }
 

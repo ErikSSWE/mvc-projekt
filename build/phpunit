@@ -2,7 +2,7 @@ PHPUnit 9.5.4 by Sebastian Bergmann and contributors.
 
 EEEEE                                                               5 / 5 (100%)
 
-Time: 00:00.104, Memory: 16.00 MB
+Time: 00:00.117, Memory: 16.00 MB
 
 There were 5 errors:
 
@@ -39,6 +39,6 @@ ArgumentCountError: Too few arguments to function App\Yatzy\YatzyGame::__constru
 ERRORS!
 Tests: 5, Assertions: 0, Errors: 5.
 
-Generating code coverage report in Clover XML format ... done [00:00.094]
+Generating code coverage report in Clover XML format ... done [00:00.096]
 
 Generating code coverage report in HTML format ... done [00:00.062]

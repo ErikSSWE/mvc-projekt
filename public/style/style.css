@@ -37,9 +37,8 @@ body {
     text-align: center;
 }
 
-.histogram {
-    max-width: 400px;
-    max-height: 400px;
+.histogram table {
+    height: 50%;
 }
 
 .guide {
