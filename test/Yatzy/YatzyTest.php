@@ -13,18 +13,12 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 
-
 /**
  * Test cases for the functions in src/Yatzy/YatzyGame.php.
  */
 class YatzyTest extends TestCase
 {
-    /**
-     * @var \Doctrine\ORM\EntityManager
-     */
-    private $entityManager;
 
-    
     public function testConstruct2()
     {
         $session = new Session(new MockFileSessionStorage());

@@ -4,7 +4,7 @@ index:
 
 game:
     path: /game
-    controller: App\Controller\YatzyController::Yatzy
+    controller: App\Controller\YatzyController::yatzy
 
 highscore:
     path: /highscore

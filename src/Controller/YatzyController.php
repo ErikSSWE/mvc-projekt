@@ -15,14 +15,14 @@ class YatzyController extends AbstractController
     /**
      * @Route("/game", name="yatzy")
      */
-    public function Yatzy(): Response
+    public function yatzy(): Response
     {
         $repository = $this->getDoctrine()->getRepository(Highscore::class);
         //var_dump($this->getDoctrine()->getManager());
         $session = new Session();
         $game = new YatzyGame($repository, $this->getDoctrine()->getManager(), $session);
 
-        if ($game->checker == true) {
+        if ($game->getChecker() == true) {
             if ($game->checkHighScore() == true) {
                 return $this->redirectToRoute('new', ['score' => $game->getHighscore()]);
             }

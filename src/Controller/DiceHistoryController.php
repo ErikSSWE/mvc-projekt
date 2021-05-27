@@ -14,7 +14,6 @@ class DiceHistoryController extends AbstractController
      */
     public function index(): Response
     {
-        $value = 2;
         $repository = $this->getDoctrine()->getRepository(DiceHistory::class);
         $history = $repository->getSortedDiceField();
         return $this->render('dice_history/index.html.twig', [

@@ -48,7 +48,13 @@ class YatzyGame
     
     protected $status = 0;
 
-    var $checker = false;
+    /**
+     * checker
+     *
+     * @var boolean
+     */
+    protected $checker = false;
+
     /**
      * @var HighscoreRepository
      */
@@ -57,7 +63,7 @@ class YatzyGame
     /**
      * @var EntityManagerInterface
      */
-    protected $em;
+    protected $entityManager;
 
     /**
      * session
@@ -71,13 +77,13 @@ class YatzyGame
      *
      * @param HighscoreRepository $manager
      */
-    public function __construct(HighscoreRepository $highscoreRepository, EntityManagerInterface $em, SessionInterface $session)
+    public function __construct(HighscoreRepository $highscoreRepository, EntityManagerInterface $entityManager, SessionInterface $session)
     {
         $this->status = 0;
         $this->session = $session;
 
         $this->highscoreRepository = $highscoreRepository;
-        $this->em = $em;
+        $this->entityManager = $entityManager;
 
         $this->hand["throws"] = $this->session->get("rolls") ?? 0;
         $this->hand["dices"][1] = $this->session->get('dice1') ?? 0;
@@ -177,7 +183,6 @@ class YatzyGame
         $this->session->set("message", $this->session->get("number"));
     }
 
-
     public function dices()
     {
         if (!isset($_POST['dice1'])) {
@@ -201,12 +206,13 @@ class YatzyGame
         }
     }
 
-    public function throwDice($dice) {
+    public function throwDice($dice)
+    {
         $value = rand(1, 6);
-        $dh = new DiceHistory();
-        $dh->setDice($value);
-        $this->em->persist($dh);
-        $this->em->flush();
+        $diceHistory = new DiceHistory();
+        $diceHistory->setDice($value);
+        $this->entityManager->persist($diceHistory);
+        $this->entityManager->flush();
         $this->session->set("dice". $dice, $value);
     }
 
@@ -241,6 +247,10 @@ class YatzyGame
         ];
     }
 
+    public function getChecker()
+    {
+        return $this->checker;
+    }
 
     public function getHighscore() 
     {
@@ -261,8 +271,7 @@ class YatzyGame
 
     public function checkHighScore()
     {
-        if ($this->getHighscore() > $this->showHighscore())
-        {
+        if ($this->getHighscore() > $this->showHighscore()) {
             return true;
         }
         return false;
