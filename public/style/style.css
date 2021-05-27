@@ -32,15 +32,21 @@ body {
 }
 
 .footer {
-    background-color: goldenrod;
-    min-height: 50px;
-    text-align: center;
+    margin-top: -200px;
 }
 
 .histogram table {
-    height: 50%;
+    height: 100%;
+}
+
+.histogram {
+    height: 500px;
 }
 
 .guide {
     border: lightgrey 1px solid;
+}
+
+.main-content {
+    min-height: 865px;
 }

@@ -29,6 +29,7 @@ class HighscoreController extends AbstractController
         return $this->render('highscore/index.html.twig', [
             'controller_name' => 'HighscoreController',
             'highscores' => $highscores,
+            'title' => "Highscore",
         ]);
     }
 

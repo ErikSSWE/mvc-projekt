@@ -237,6 +237,7 @@ class YatzyGame
             "guide2" => 'Får du rätt på ditt bet och det är svårare får
                 du även bonuspoäng!',
             "selectedBet" => $this->session->get('prediction'),
+            'title' => 'Yatzy'
         ];
     }
 

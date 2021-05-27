@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html>
-    <title>Home</title>
-    <head>
-        <meta charset="UTF-8">
-        {% block stylesheets %}
-        <link rel="stylesheet" type="text/css" href="../public/style/style.css" /> 
-        {% endblock %}
-    </head>
-    {% include 'incl/header.html.twig' %}
-<body>
-<div class="container">
+{% include 'incl/header.html.twig' %}
+<div class="container main-content">
     <div class="row">
         <h1>{{ text }}</h1>
         <p> Här finns några sidor du kan kolla igenom,
@@ -23,5 +13,3 @@
     </div>
 </div>
 {% include 'incl/footer.html.twig' %}
-</body>
-</html>

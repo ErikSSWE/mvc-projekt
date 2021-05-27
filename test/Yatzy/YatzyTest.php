@@ -108,7 +108,27 @@ class YatzyTest extends TestCase
 
         $session->set("rolls", 3);
         $session->set("number", 7);
+        $_POST["bet"] = 1;
+        $session->set("prediction", $_POST["bet"]);
         $_POST["action"] = "starta";
+        $controller = new YatzyGame($highscoreRepository, $test, $session);
+        $data = $controller->getData();
+
+        $this->assertEquals($session->get("rolls"), $data["rolls"]);
+    }
+
+    public function testConstructCaseAvsluta()
+    {
+        $session = new Session(new MockFileSessionStorage());
+        $session->set("number", 7);
+        $highscoreRepository = $this->createMock(HighscoreRepository::class);
+        $test = $this->createMock(EntityManager::class);
+
+        $session->set("rolls", 3);
+        $session->set("number", 7);
+        $_POST["bet"] = 1;
+        $session->set("prediction", $_POST["bet"]);
+        $_POST["action"] = "avsluta";
         $controller = new YatzyGame($highscoreRepository, $test, $session);
         $data = $controller->getData();
 

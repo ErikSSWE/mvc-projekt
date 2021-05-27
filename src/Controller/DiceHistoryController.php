@@ -19,7 +19,8 @@ class DiceHistoryController extends AbstractController
         $history = $repository->getSortedDiceField();
         return $this->render('dice_history/index.html.twig', [
             'controller_name' => 'DiceHistoryController',
-            'history' => $history
+            'history' => $history,
+            'title' => "Historik",
         ]);
     }
 }
