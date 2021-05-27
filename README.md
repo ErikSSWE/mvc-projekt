@@ -11,7 +11,9 @@ __Travis__
 
 __Requirements__
 php: >=7.2.5
+
 ext-ctype: *,
+
 ext-iconv: *,
 
 
