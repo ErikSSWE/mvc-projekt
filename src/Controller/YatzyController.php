@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Highscore;
 use App\Yatzy\YatzyGame;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class YatzyController extends AbstractController
 {
@@ -17,8 +18,9 @@ class YatzyController extends AbstractController
     public function Yatzy(): Response
     {
         $repository = $this->getDoctrine()->getRepository(Highscore::class);
-
-        $game = new YatzyGame($repository, $this->getDoctrine()->getManager());
+        //var_dump($this->getDoctrine()->getManager());
+        $session = new Session();
+        $game = new YatzyGame($repository, $this->getDoctrine()->getManager(), $session);
 
         if ($game->checker == true) {
             if ($game->checkHighScore() == true) {

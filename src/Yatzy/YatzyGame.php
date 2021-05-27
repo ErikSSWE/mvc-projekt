@@ -10,6 +10,7 @@ use App\Repository\HighscoreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class YatzyGame
 {
@@ -58,17 +59,22 @@ class YatzyGame
      */
     protected $em;
 
+    /**
+     * session
+     *
+     * @var Session
+     */
+    protected $session;
 
     /**
      * OneLevel Constructor
      *
      * @param HighscoreRepository $manager
      */
-    public function __construct(HighscoreRepository $highscoreRepository, EntityManagerInterface $em)
+    public function __construct(HighscoreRepository $highscoreRepository, EntityManagerInterface $em, SessionInterface $session)
     {
         $this->status = 0;
-
-        $this->session = new Session();
+        $this->session = $session;
 
         $this->highscoreRepository = $highscoreRepository;
         $this->em = $em;
@@ -210,8 +216,8 @@ class YatzyGame
             "title" => "Yatzy",
             "guide" => "För att spela klicka först vad du tror i bettet sen
                 klicka bara starta,
-                , sen när spelet är igång är det bara att klicka i dem du vill behålla,
-                när du är klar klickar du bara avsluta",
+                 när spelet är igång är det bara att klicka i dem du vill behålla
+                och när du är klar klickar du bara avsluta",
             "message" => $this->session->get("message"),
             "dice1" => $this->session->get("dice1")  ?? 0,
             "dice2" => $this->session->get("dice2") ?? 0,
